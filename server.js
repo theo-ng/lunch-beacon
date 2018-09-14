@@ -19,11 +19,14 @@ admin.initializeApp(config);
 const db = admin.firestore();
 
 app.get('/restaurants', (req, res) => {
-    lor = {};
+    lor = [];
     db.collection('restaurants').get()
         .then((snapshot) => {
             snapshot.forEach((doc) => {
-                lor[doc.id] = doc.data();
+                lor.push({
+                    id: doc.id,
+                    ...doc.data()
+                })
             });
             res.send(lor);
         })
