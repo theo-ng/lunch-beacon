@@ -46,7 +46,10 @@ class NewRestaraunt extends Component {
     handleDistanceInput = (event) => {
         this.setState({ distance: event.target.value });
     }
-    handleChange = (event) => {
+    handlePriceChange = (event) => {
+        this.setState({ price: event.target.value });
+    };
+    handleOfficeChange = (event) => {
         this.setState({ office: event.target.value });
     };
     handleFTI = (event) => {
@@ -72,7 +75,7 @@ class NewRestaraunt extends Component {
                 other: this.state.other
             })
         });
-        const body = await response.json();
+        this._handleClose();
     }
 
     render() {
@@ -118,7 +121,7 @@ class NewRestaraunt extends Component {
                                 <InputLabel>Office</InputLabel>
                                 <Select
                                     value={this.state.office}
-                                    onChange={this.handleChange}
+                                    onChange={this.handleOfficeChange}
                                     inputProps={{
                                         name: 'office',
                                     }}
@@ -134,7 +137,7 @@ class NewRestaraunt extends Component {
                                 <InputLabel>Price</InputLabel>
                                 <Select
                                     value={this.state.price}
-                                    onChange={this.handleChange}
+                                    onChange={this.handlePriceChange}
                                     inputProps={{
                                         name: 'price',
                                     }}
