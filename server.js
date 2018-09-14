@@ -2,6 +2,7 @@ const express = require('express');
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const config = {
     databaseURL: "https://lunch-beacon.firebaseio.com",
@@ -13,6 +14,7 @@ const config = {
 const app = express();
 const port = process.env.PORT || 5000;
 app.use(cors());
+app.use(bodyParser.json());
 
 admin.initializeApp(config);
 
@@ -34,6 +36,17 @@ app.get('/restaurants', (req, res) => {
             console.log('Error getting docs', err);
         });
 });
+
+app.post('/restaurant', (req, res) => {
+    let data = req.body;
+    db.collection('restaurants').add(data)
+        .then(ref => {
+            res.send({ id: ref.id });
+        })
+        .catch((err) => {
+            console.log('Error adding doc', err);
+        });
+})
 
 app.get('/status', (req, res) => {
     res.send({ express: 'Hello From Express' });

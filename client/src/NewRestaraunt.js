@@ -22,7 +22,9 @@ class NewRestaraunt extends Component {
             restaurantName: '',
             office: "Vancouver",
             price: "$",
-            distance: 0
+            distance: 0,
+            foodType: '',
+            other: ''
         };
     }
 
@@ -39,17 +41,39 @@ class NewRestaraunt extends Component {
     }
 
     handleNameInput = (event) => {
-        this.setState({ restaurantName: event.value });
+        this.setState({ restaurantName: event.target.value });
     }
     handleDistanceInput = (event) => {
-        this.setState({ distance: event.value });
+        this.setState({ distance: event.target.value });
+    }
+    handleChange = (event) => {
+        this.setState({ office: event.target.value });
+    };
+    handleFTI = (event) => {
+        this.setState({ foodType: event.target.value });
+    }
+    handleOtherInput = (event) => {
+        this.setState({ other: event.target.value });
     }
 
-    handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
+    addRestaurant = async () => {
+        const response = await fetch('http://localhost:5000/restaurant', {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            },
+            body: JSON.stringify({
+                name: this.state.restaurantName,
+                distance: this.state.distance,
+                foodType: this.state.foodType,
+                avgPrice: this.state.price,
+                office: this.state.office,
+                other: this.state.other
+            })
         });
-    };
+        const body = await response.json();
+    }
 
     render() {
         return (
@@ -138,6 +162,21 @@ class NewRestaraunt extends Component {
                                 style={{ width: 200, marginTop: 0 }}
                             />
                         </form>
+                        <br />
+                        <form autoComplete="off">
+                            <InputLabel
+                                style={{ display: "block" }}
+                            >
+                                Food Type
+                            </InputLabel>
+                            <TextField
+                                id="foodType"
+                                value={this.state.foodType}
+                                onChange={this.handleFTI}
+                                margin="normal"
+                                style={{ width: 200, marginTop: 0 }}
+                            />
+                        </form>
                         <form autoComplete="off">
                             <InputLabel
                                 style={{ display: "block" }}
@@ -157,7 +196,7 @@ class NewRestaraunt extends Component {
                     </DialogContent>
                     <DialogActions>
                         <Button
-                            // onClick={this.handleClose}
+                            onClick={this.addRestaurant}
                             color="primary"
                             variant="raised"
                         >
