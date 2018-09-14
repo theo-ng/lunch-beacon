@@ -16,7 +16,7 @@ class App extends Component {
 			.then(res => this.setState({ response: res.express }))
 			.catch(err => console.log(err));
 	}
-	
+
 	callApi = async () => {
 		const response = await fetch('http://localhost:5000/restaurants');
 		const body = await response.json();
@@ -26,8 +26,10 @@ class App extends Component {
 		}
 		return body;
     }
-    
+
     render() {
+        console.log(this.state.response)
+
         return (
             <div className="App">
                 <TopNav />
