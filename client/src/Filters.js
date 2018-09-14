@@ -15,6 +15,14 @@ class Filters extends Component {
     }
 
     handleChange = (event) => {
+        if (event.target.name === "office") {
+            this.props.updateOffice(event.target.value);
+        }
+
+        if (event.target.name === "sortBy") {
+            this.props.updateSortBy(event.target.value);
+        }
+
         this.setState({
             [event.target.name]: event.target.value
         });

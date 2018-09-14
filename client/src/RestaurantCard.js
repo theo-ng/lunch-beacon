@@ -43,13 +43,13 @@ class RestaurantCard extends Component {
                     <br />
                     <CardContent>
                         <Typography variant="headline" component="h2">
-                            Name Of The Restaurant
+                            {this.props.name}
                         </Typography>
                         <Typography color="textSecondary">
-                            Price $$$ / Distance 5 min
+                            Price {this.props.avgPrice} / Distance {this.props.distance} min
                         </Typography>
                         <Typography component="p">
-                            Type of food
+                            Type of food: {this.props.foodType}
                         </Typography>
                     </CardContent>
                     <CardActions
@@ -69,18 +69,17 @@ class RestaurantCard extends Component {
                     open={this.state.open}
                     onClose={this.handleClose}
                 >
-                    <DialogTitle>Name Of The Restaurant</DialogTitle>
+                    <DialogTitle>{this.props.name}</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            <b>Price $$$ / Distance 5 min</b>
+                            <b>Price {this.props.avgPrice} / Distance {this.props.distance} min</b>
                         </DialogContentText>
                         <DialogContentText>
-                            Type of food
+                            Type of food: {this.props.foodType}
                         </DialogContentText>
                         <br />
                         <DialogContentText>
-                            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-                            facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
+                            {this.props.other}
                         </DialogContentText>
                         {/* Needs to be a component */}
                         {/* <div>
