@@ -75,7 +75,7 @@ class NewRestaraunt extends Component {
                 other: this.state.other
             })
         });
-        this._handleClose();
+        this.handleClose();
     }
 
     render() {
