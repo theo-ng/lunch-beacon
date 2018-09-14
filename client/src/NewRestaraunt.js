@@ -68,7 +68,7 @@ class NewRestaraunt extends Component {
             },
             body: JSON.stringify({
                 name: this.state.restaurantName,
-                distance: this.state.distance,
+                distance: parseInt(this.state.distance),
                 foodType: this.state.foodType,
                 avgPrice: this.state.price,
                 office: this.state.office,
