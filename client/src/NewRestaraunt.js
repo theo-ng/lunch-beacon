@@ -13,20 +13,20 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+function getInitialState() {
+    return {
+        open: false,
+        restaurantName: '',
+        office: "Vancouver",
+        price: "$",
+        distance: 0,
+        foodType: '',
+        other: ''
+    }
+}
 
 class NewRestaraunt extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            open: false,
-            restaurantName: '',
-            office: "Vancouver",
-            price: "$",
-            distance: 0,
-            foodType: '',
-            other: ''
-        };
-    }
+    state = getInitialState();
 
     handleOpen = () => {
         this.setState({
@@ -76,6 +76,7 @@ class NewRestaraunt extends Component {
             })
         });
         this.handleClose();
+        this.setState({ ...getInitialState() });
     }
 
     render() {
