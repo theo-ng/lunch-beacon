@@ -1,10 +1,9 @@
 const express = require('express');
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
+const cors = require('cors');
 
 const config = {
-    apiKey: "AIzaSyBE3ulGuSsB8wal55w1oPijBo5EQ7-bFqo",
-    authDomain: "lunch-beacon.firebaseapp.com",
     databaseURL: "https://lunch-beacon.firebaseio.com",
     projectId: "lunch-beacon",
     storageBucket: "lunch-beacon.appspot.com",
@@ -13,28 +12,27 @@ const config = {
 };
 const app = express();
 const port = process.env.PORT || 5000;
+app.use(cors());
 
 admin.initializeApp(config);
 
 const db = admin.firestore();
-_getRestaurants = () => {
-    const res = {};
+
+app.get('/restaurants', (req, res) => {
+    lor = {};
     db.collection('restaurants').get()
         .then((snapshot) => {
             snapshot.forEach((doc) => {
-                res[doc.id] = doc.data();
+                lor[doc.id] = doc.data();
             });
+            res.send(lor);
         })
         .catch((err) => {
             console.log('Error getting docs', err);
         });
-}
-
-app.get('/restaurants', (req, res) => {
-    res.send(_getRestaurants());
 });
 
-app.get('/api/hello', (req, res) => {
+app.get('/status', (req, res) => {
     res.send({ express: 'Hello From Express' });
 });
 
